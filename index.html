@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Fendos 3D Dashboard</title>
+
+<style>
+:root {
+    --bg: #0b0f14;
+    --panel: #111827;
+    --border: #1f2937;
+    --ok: #22c55e;
+    --warn: #eab308;
+    --err: #ef4444;
+    --accent: #60a5fa;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: #e5e7eb;
+}
+
+header {
+    padding: 14px 22px;
+    background: #020617;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.panel h2 {
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+
+button {
+    background: #1d4ed8;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+canvas {
+    width: 100%;
+    border-radius: 12px;
+    background: #020617;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th, td {
+    padding: 6px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+footer {
+    padding: 10px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <strong>🛰️ Fendos 3D Dashboard</strong>
+    <span>
+        <span id="engine-dot" class="status-dot" style="background:gray"></span>
+        <span id="engine-label">Initializing</span>
+        <select id="mode-switch">
+            <option value="demo">Demo Mode</option>
+            <option value="prod">Production</option>
+        </select>
+    </span>
+</header>
+
+<main>
+
+    <div class="panel">
+        <h2>Engine Control</h2>
+        <p id="status-text">Waiting for startup…</p>
+        <button id="run-test">Run GPU Test</button>
+    </div>
+
+    <div class="panel">
+        <h2>Live Telemetry</h2>
+        <canvas id="signal-chart"></canvas>
+    </div>
+
+    <div class="panel">
+        <h2>Satellite Objects</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Altitude</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="sat-table"></tbody>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>System Diagnostics</h2>
+        <pre id="diag">
+WebGPU : pending
+Wasm   : pending
+Compute: pending
+        </pre>
+    </div>
+
+    <div class="panel">
+        <h2>Orbit Map (2D)</h2>
+        <canvas id="orbit-map"></canvas>
+    </div>
+
+    <div class="panel">
+        <h2>3D Orbit View</h2>
+        <canvas id="orbit-3d"></canvas>
+    </div>
+
+</main>
+
+<footer>
+    Fendos Engine • WebGPU + Wasm • 3D Demo
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
